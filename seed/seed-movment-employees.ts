@@ -2,7 +2,38 @@ import "dotenv/config";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 import { connectToMongoDB } from "../mongodb";
-import { EmployeeProfile, EmploymentDetail, User } from "../models";
+import {
+  ActionItem,
+  Announcement,
+  AnnouncementRead,
+  BreakLog,
+  CalendarEvent,
+  ChatMessage,
+  Compensation,
+  ComplianceRecord,
+  EmployeeAuditLog,
+  EmployeeDocument,
+  EmployeeProfile,
+  EmploymentDetail,
+  FormSubmission,
+  JobHistory,
+  LeaveApplication,
+  Meeting,
+  MeetingMinutes,
+  MeetingParticipant,
+  Note,
+  Notification,
+  OvertimeEntry,
+  Payslip,
+  PerformanceRecord,
+  Project,
+  ProjectAssignment,
+  ProjectTask,
+  Qualification,
+  TimeEntry,
+  User,
+  WorkSession,
+} from "../models";
 
 type EmployeeSeed = {
   name: string;
@@ -16,6 +47,39 @@ type EmployeeSeed = {
 
 const DEFAULT_PASSWORD = process.env.SEED_DEFAULT_PASSWORD || "123456";
 const OVERWRITE_PASSWORDS = process.env.SEED_OVERWRITE_PASSWORDS === "true";
+
+const allModels = [
+  User,
+  TimeEntry,
+  WorkSession,
+  OvertimeEntry,
+  BreakLog,
+  LeaveApplication,
+  FormSubmission,
+  ChatMessage,
+  Note,
+  Payslip,
+  Announcement,
+  Project,
+  ProjectAssignment,
+  ProjectTask,
+  Notification,
+  AnnouncementRead,
+  EmployeeProfile,
+  EmploymentDetail,
+  JobHistory,
+  Compensation,
+  PerformanceRecord,
+  Qualification,
+  EmployeeDocument,
+  ComplianceRecord,
+  EmployeeAuditLog,
+  Meeting,
+  MeetingParticipant,
+  MeetingMinutes,
+  ActionItem,
+  CalendarEvent,
+];
 
 const employees: EmployeeSeed[] = [
   {
@@ -198,6 +262,13 @@ async function upsertEmployeeDetails(usersByName: Map<string, mongoose.Types.Obj
   }
 }
 
+async function ensureCollections() {
+  for (const model of allModels) {
+    await model.createCollection();
+    await model.syncIndexes();
+  }
+}
+
 async function run() {
   const connected = await connectToMongoDB();
   if (!connected) {
@@ -205,6 +276,7 @@ async function run() {
     process.exit(1);
   }
 
+  await ensureCollections();
   const passwordHash = await bcrypt.hash(DEFAULT_PASSWORD, 10);
   const usersByName = await upsertUsers(passwordHash);
   await upsertEmployeeDetails(usersByName);
