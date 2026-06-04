@@ -69,7 +69,7 @@ export const appRouter = router({
 
           if (setupRequired && twoFactorSecret) {
             const label = fullUser.email || fullUser.employeeId || "admin";
-            const otpauth = authenticator.keyuri(label, "RadFlow HRMS", twoFactorSecret);
+            const otpauth = authenticator.keyuri(label, "Flow | Movment HRMS", twoFactorSecret);
             qrCodeDataUrl = await toDataURL(otpauth);
           }
 

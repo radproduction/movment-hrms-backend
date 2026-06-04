@@ -34,7 +34,7 @@ export const manusUsers: ManusUserSeed[] = [
   {
     openId: "admin-aamir-001",
     name: "Aamir",
-    email: "aamir@rad.com",
+    email: "aamir@movment.com",
     loginMethod: "custom",
     role: "admin",
     employeeId: "ADMIN001",
@@ -45,7 +45,7 @@ export const manusUsers: ManusUserSeed[] = [
   {
     openId: "hrms-hassan",
     name: "Hassan",
-    email: "hassan@rad.com",
+    email: "hassan@movment.com",
     loginMethod: "custom",
     role: "user",
     employeeId: "EMP001",
@@ -56,7 +56,7 @@ export const manusUsers: ManusUserSeed[] = [
   {
     openId: "hrms-talha",
     name: "Talha",
-    email: "talha@rad.com",
+    email: "talha@movment.com",
     loginMethod: "custom",
     role: "user",
     employeeId: "EMP002",
@@ -68,7 +68,7 @@ export const manusUsers: ManusUserSeed[] = [
 
 export const manusProjects: ManusProjectSeed[] = [
   {
-    name: "Rad.flow HRMS Development",
+    name: "Flow | Movment HRMS Development",
     description:
       "Complete HRMS portal with time tracking, leave management, and project management",
     status: "active",
@@ -96,12 +96,12 @@ export const manusProjects: ManusProjectSeed[] = [
 
 export const manusProjectAssignments: ManusProjectAssignmentSeed[] = [
   {
-    projectName: "Rad.flow HRMS Development",
+    projectName: "Flow | Movment HRMS Development",
     userOpenId: "hrms-hassan",
     role: "Lead Developer",
   },
   {
-    projectName: "Rad.flow HRMS Development",
+    projectName: "Flow | Movment HRMS Development",
     userOpenId: "hrms-talha",
     role: "Frontend Developer",
   },
