@@ -281,7 +281,7 @@ async function run() {
   const usersByName = await upsertUsers(passwordHash);
   await upsertEmployeeDetails(usersByName);
 
-  console.log(`[Seed] Seeded ${employees.length} Movment employees.`);
+  console.log(`[Seed] Seeded ${employees.length} Movement employees.`);
   console.log(`[Seed] Default password: ${DEFAULT_PASSWORD}`);
   console.log("[Seed] Admin login: ADMIN001");
   await mongoose.connection.close();
