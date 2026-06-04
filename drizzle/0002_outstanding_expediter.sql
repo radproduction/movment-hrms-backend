@@ -1,0 +1,1 @@
+ALTER TABLE `formSubmissions` MODIFY COLUMN `formType` enum('resignation','leave','grievance','feedback') NOT NULL;

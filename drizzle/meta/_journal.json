@@ -1,0 +1,76 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1770993800734,
+      "tag": "0000_misty_king_bedlam",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1770993884160,
+      "tag": "0001_overjoyed_swordsman",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1770996707208,
+      "tag": "0002_outstanding_expediter",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1770997086582,
+      "tag": "0003_dapper_slayback",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1771007009863,
+      "tag": "0004_fine_black_bolt",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1771008413101,
+      "tag": "0005_chief_kree",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1771013871929,
+      "tag": "0006_redundant_scorpion",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1771144713177,
+      "tag": "0007_goofy_orphan",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1771150528162,
+      "tag": "0008_overjoyed_garia",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1771151965706,
+      "tag": "0009_mushy_dakota_north",
+      "breakpoints": true
+    }
+  ]
+}

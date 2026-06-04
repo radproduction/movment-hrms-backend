@@ -1,0 +1,1 @@
+ALTER TABLE `projects` ADD `source` enum('team_lead','employee') DEFAULT 'team_lead' NOT NULL;
