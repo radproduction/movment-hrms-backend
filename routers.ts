@@ -99,6 +99,7 @@ export const appRouter = router({
             name: user.name,
             email: user.email,
             employeeId: user.employeeId,
+            role: user.role,
             department: user.department,
             position: user.position,
           },
@@ -138,7 +139,18 @@ export const appRouter = router({
         const token = await createSessionToken(userId, { expiresInMs: maxAgeMs });
         setSessionCookie(ctx.res, ctx.req, token, maxAgeMs);
 
-        return { success: true };
+        return {
+          success: true,
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            employeeId: user.employeeId,
+            role: user.role,
+            department: user.department,
+            position: user.position,
+          },
+        };
       }),
 
     // Update user avatar

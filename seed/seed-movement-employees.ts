@@ -43,6 +43,7 @@ type EmployeeSeed = {
   division?: string;
   employeeId: string;
   role: "admin" | "user";
+  password?: string;
 };
 
 const DEFAULT_PASSWORD = process.env.SEED_DEFAULT_PASSWORD || "123456";
@@ -90,6 +91,13 @@ const employees: EmployeeSeed[] = [
     role: "admin",
   },
   {
+    name: "Ommar Seja",
+    designation: "Admin",
+    email: "ommar.seja@gmail.com",
+    employeeId: "ADMIN002",
+    role: "admin",
+  },
+  {
     name: "Hiba Bilwani",
     designation: "Brand Head",
     email: "Hibabilwani49@gmail.com",
@@ -113,6 +121,7 @@ const employees: EmployeeSeed[] = [
     division: "Office Team",
     employeeId: "EMP003",
     role: "user",
+    password: "ayaan123",
   },
   {
     name: "Ammar",
@@ -184,6 +193,9 @@ async function upsertUsers(passwordHash: string) {
   for (const employee of employees) {
     const email = normalizeEmail(employee.email);
     const openId = `emp-${employee.employeeId.toLowerCase()}`;
+    const employeePasswordHash = employee.password
+      ? await bcrypt.hash(employee.password, 10)
+      : passwordHash;
     const existing = await User.findOne({
       $or: [{ employeeId: employee.employeeId }, { email }],
     });
@@ -196,7 +208,7 @@ async function upsertUsers(passwordHash: string) {
         loginMethod: "custom",
         role: employee.role,
         employeeId: employee.employeeId,
-        password: passwordHash,
+        password: employeePasswordHash,
         department: employee.division || "",
         position: employee.designation,
         lastSignedIn: new Date(0),
@@ -213,8 +225,8 @@ async function upsertUsers(passwordHash: string) {
     existing.employeeId = employee.employeeId;
     existing.department = employee.division || "";
     existing.position = employee.designation;
-    if (OVERWRITE_PASSWORDS || !existing.password) {
-      existing.password = passwordHash;
+    if (employee.password || OVERWRITE_PASSWORDS || !existing.password) {
+      existing.password = employeePasswordHash;
     }
     await existing.save();
     usersByName.set(firstName(employee.name), existing._id);
@@ -283,7 +295,7 @@ async function run() {
 
   console.log(`[Seed] Seeded ${employees.length} Movement employees.`);
   console.log(`[Seed] Default password: ${DEFAULT_PASSWORD}`);
-  console.log("[Seed] Admin login: ADMIN001");
+  console.log("[Seed] Admin logins: ADMIN001, ADMIN002");
   await mongoose.connection.close();
 }
 
