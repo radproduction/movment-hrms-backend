@@ -73,13 +73,28 @@ export function setSessionCookie(
   res.cookie(COOKIE_NAME, token, { ...cookieOptions, maxAge: maxAgeMs });
 }
 
-export async function authenticateRequest(req: Request): Promise<AuthenticatedUser> {
+function getSessionTokenFromRequest(req: Request) {
+  const authHeader = req.headers.authorization;
+  if (typeof authHeader === "string" && authHeader.startsWith("Bearer ")) {
+    const bearerToken = authHeader.slice("Bearer ".length).trim();
+    if (bearerToken) return bearerToken;
+  }
+
+  const headerToken = req.headers["x-session-token"];
+  if (typeof headerToken === "string" && headerToken.trim()) {
+    return headerToken.trim();
+  }
+
   const cookieHeader = req.headers.cookie;
   const cookies = cookieHeader ? parseCookieHeader(cookieHeader) : {};
-  const token = cookies[COOKIE_NAME];
+  return cookies[COOKIE_NAME];
+}
+
+export async function authenticateRequest(req: Request): Promise<AuthenticatedUser> {
+  const token = getSessionTokenFromRequest(req);
 
   if (!token) {
-    throw new Error("Missing session cookie");
+    throw new Error("Missing session token");
   }
 
   const { userId } = await verifySessionToken(token, "session");

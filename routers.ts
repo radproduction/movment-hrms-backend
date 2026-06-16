@@ -94,6 +94,7 @@ export const appRouter = router({
 
         return {
           success: true,
+          sessionToken: token,
           user: {
             id: user.id,
             name: user.name,
@@ -141,6 +142,7 @@ export const appRouter = router({
 
         return {
           success: true,
+          sessionToken: token,
           user: {
             id: user.id,
             name: user.name,
@@ -981,6 +983,22 @@ export const appRouter = router({
           }
           throw error;
         }
+      }),
+
+    resetPassword: protectedProcedure
+      .input(
+        z.object({
+          id: z.string(),
+          newPassword: z.string().min(6),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user.role !== "admin") {
+          throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
+        }
+
+        await db.updateUserPassword(input.id, input.newPassword);
+        return { success: true };
       }),
   }),
 
